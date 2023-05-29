@@ -15,6 +15,9 @@ then
     exit 1
 fi
 
+# 添加脚本执行权限
+find . -type f -name "*.sh" -exec chmod +x {} \;
+
 # 遍历安装清单并执行安装脚本
 while read item; do
 
