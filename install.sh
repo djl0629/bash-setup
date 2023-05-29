@@ -18,13 +18,14 @@ fi
 # 添加脚本执行权限
 find . -type f -name "*.sh" -exec chmod +x {} \;
 
-# 创建临时工作目录
-while read address; do
-    ssh $address "/bin/bash -c 'mkdir -p /tmp/yscredit/setup'"
-done < hosts
-
-# 创建ip池
+# 创建数组
 mapfile -t ip_pool < hosts
+
+# 创建临时工作目录
+for address in "${ip_pool[@]}"
+do
+    ssh $address "/bin/bash -c 'mkdir -p /tmp/yscredit/setup'"
+done
 
 # 遍历安装清单并执行安装脚本
 while read item; do
@@ -37,7 +38,7 @@ while read item; do
         for address in "${ip_pool[@]}"
         do
             scp -r files/$item $address:/tmp/yscredit/setup/
-            ssh $address "/bin/bash /tmp/yscredit/setup/$item/$item_install.sh"
+            ssh $address "/bin/bash /tmp/yscredit/setup/$item/*_install.sh"
         done
         echo "$item install done"
     fi
