@@ -39,6 +39,7 @@ do
     else
         for address in "${ip_pool[@]}"
         do
+            echo "INFO:当前正在对主机 $address 安装 $item"
             scp -r files/$item $address:/tmp/yscredit/setup/
             ssh $address "/bin/bash /tmp/yscredit/setup/$item/*_install.sh"
         done
