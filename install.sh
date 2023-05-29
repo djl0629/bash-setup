@@ -20,12 +20,7 @@ find . -type f -name "*.sh" -exec chmod +x {} \;
 
 # 创建数组
 mapfile -t ip_pool < hosts
-
-# 创建临时工作目录
-for address in "${ip_pool[@]}"
-do
-    ssh $address "/bin/bash -c 'mkdir -p /tmp/yscredit/setup'"
-done
+mapfile -t item_pool < $list
 
 # 创建临时工作目录
 for address in "${ip_pool[@]}"
@@ -34,7 +29,8 @@ do
 done
 
 # 遍历安装清单并执行安装脚本
-while read item; do
+for item in "${item_pool[@]}"
+do
 
     if [ ! -f files/$item/$item\_install.sh ]
     then
@@ -49,4 +45,4 @@ while read item; do
         echo "$item install done"
     fi
 
-done < $list
+done
