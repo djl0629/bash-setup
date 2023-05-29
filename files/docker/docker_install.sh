@@ -25,8 +25,8 @@ chown -R root:root docker/*
 cp docker/* /usr/bin
 
 mkdir -p /etc/docker
-cp docker.service /etc/systemd/system/
-chmod 0755 /etc/systemd/system/docker.service
+cp docker.service /usr/lib/systemd/system/
+chmod 0755 /usr/lib/systemd/system/docker.service
 
 cp daemon.json.j2 /etc/docker/daemon.json
 chmod 0644 /etc/docker/daemon.json
@@ -35,5 +35,6 @@ chmod 0755 /usr/bin/docker-compose
 
 systemctl daemon-reload
 systemctl restart docker
+systemctl enable docker
 
 rm -rf /tmp/yscredit/setup/docker
