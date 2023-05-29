@@ -23,6 +23,9 @@ while read address; do
     ssh $address "/bin/bash -c 'mkdir -p /tmp/yscredit/setup'"
 done < hosts
 
+# 创建ip池
+mapfile -t ip_pool < hosts
+
 # 遍历安装清单并执行安装脚本
 while read item; do
 
@@ -31,10 +34,11 @@ while read item; do
         echo ERROR:file files/$item/$item\_install.sh does not exist
         exit 1
     else
-        while read address; do
+        for address in "${ip_pool[@]}"
+        do
             scp -r files/$item $address:/tmp/yscredit/setup/
-            ssh $address "/bin/bash /tmp/yscredit/setup/$item/*_install.sh"
-        done < hosts
+            ssh $address "/bin/bash /tmp/yscredit/setup/$item/$item_install.sh"
+        done
         echo "$item install done"
     fi
 
