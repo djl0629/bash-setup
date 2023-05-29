@@ -5,14 +5,14 @@ cd /tmp/yscredit/setup/docker
 if [ "$arch" = "x86_64" ]; then
     echo "当前系统架构为x86_64"
 
-    tar zxvf docker-24.0.2-x86_64.tgz -C /tmp/yscredit/setup/docker
+    tar zxvf docker-20.10.0-x86_64.tgz -C /tmp/yscredit/setup/docker
 
     cp docker-compose-linux-x86_64 /usr/bin/docker-compose
 
 elif [ "$arch" = "aarch64" ]; then
     echo "当前系统架构为aarch64"
 
-    tar zxvf docker-24.0.2-aarch64.tgz -C /tmp/yscredit/setup/docker
+    tar zxvf docker-20.10.0-aarch64.tgz -C /tmp/yscredit/setup/docker
 
     cp docker-compose-linux-aarch64 /usr/bin/docker-compose
     
