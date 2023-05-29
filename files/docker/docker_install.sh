@@ -5,16 +5,16 @@ cd /tmp/yscredit/setup/docker
 if [ "$arch" = "x86_64" ]; then
     echo "当前系统架构为x86_64"
 
-    tar zxvf docker-20.10.0_x86.tgz -C /tmp/yscredit/setup/docker
+    tar zxvf docker-24.0.2-x86_64.tgz -C /tmp/yscredit/setup/docker
 
-    cp docker-compose-x86 /usr/bin/docker-compose
+    cp docker-compose-linux-x86_64 /usr/bin/docker-compose
 
 elif [ "$arch" = "aarch64" ]; then
     echo "当前系统架构为aarch64"
 
-    tar zxvf docker-20.10.0_arm.tgz -C /tmp/yscredit/setup/docker
+    tar zxvf docker-24.0.2-aarch64.tgz -C /tmp/yscredit/setup/docker
 
-    cp docker-compose-aarch64 /usr/bin/docker-compose
+    cp docker-compose-linux-aarch64 /usr/bin/docker-compose
     
 else
     echo "ERROR:未知架构"
@@ -24,15 +24,20 @@ fi
 chown -R root:root docker/*
 cp docker/* /usr/bin
 
-mkdir -p /etc/docker
 cp docker.service /usr/lib/systemd/system/
+cp docker.socket /usr/lib/systemd/system/
+cp containerd.service /usr/lib/systemd/system/
 chmod 0755 /usr/lib/systemd/system/docker.service
+chmod 0755 /usr/lib/systemd/system/docker.socket
+chmod 0755 /usr/lib/systemd/system/containerd.service
 
+mkdir -p /etc/docker
 cp daemon.json.j2 /etc/docker/daemon.json
 chmod 0644 /etc/docker/daemon.json
 
 chmod 0755 /usr/bin/docker-compose
 
+groupadd docker
 systemctl daemon-reload
 systemctl restart docker
 systemctl enable docker
