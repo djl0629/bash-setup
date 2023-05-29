@@ -33,7 +33,7 @@ chmod 0644 /etc/docker/daemon.json
 
 chmod 0755 /usr/bin/docker-compose
 
-systemctl reload docker
+systemctl daemon-reload
 systemctl restart docker
 
 rm -rf /tmp/yscredit/setup/docker
