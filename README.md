@@ -10,7 +10,7 @@
 ```
 2、添加可执行全新啊
 ```bash
-chmod +x ssh_key_copy.sh ; chmod +x install.sh
+chmod +x ssh_key_copy.sh install.sh
 ```
 3、服务器间免密登录（需要手动输入每台主机的root密码）
 ```bash
