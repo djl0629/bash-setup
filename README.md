@@ -18,6 +18,10 @@
 ```
 docker
 ```
+4、执行批量安装脚本，并指定组件清单
+```bash
+./install.sh list
+```
 目前支持批量安装的组件清单
 ```
 docker # docker以及docker-compose
