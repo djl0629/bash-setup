@@ -27,6 +27,12 @@ do
     ssh $address "/bin/bash -c 'mkdir -p /tmp/yscredit/setup'"
 done
 
+# 创建临时工作目录
+for address in "${ip_pool[@]}"
+do
+    ssh $address "/bin/bash -c 'mkdir -p /tmp/yscredit/setup'"
+done
+
 # 遍历安装清单并执行安装脚本
 while read item; do
 
