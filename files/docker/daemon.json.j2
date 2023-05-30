@@ -1,10 +1,8 @@
 {
+  "data-root": "/home/docker",
   "log-driver":"json-file",
   "log-opts": {"max-size":"100m", "max-file":"3"},
   "bip":"20.10.0.1/24",
-  "exec-opts": [
-    "native.cgroupdriver=systemd"
-  ],
   "default-address-pools" : [
     {
       "base" : "30.10.0.0/16",
