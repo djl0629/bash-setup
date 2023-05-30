@@ -33,7 +33,7 @@ fi
 
 chown -R root:root docker/*
 chmod 0755 docker/*
-/bin/cp -rf docker/* /usr/bin
+mv -f docker/* /usr/bin
 
 /bin/cp -rf docker.service /usr/lib/systemd/system/
 /bin/cp -rf docker.socket /usr/lib/systemd/system/
