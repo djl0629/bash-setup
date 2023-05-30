@@ -12,7 +12,7 @@ if [ "$arch" = "x86_64" ]; then
         tar zxvf docker-20.10.0-x86_64.tgz -C /tmp/yscredit/setup/docker
     fi
 
-    /bin/cp -rf docker-compose-linux-x86_64 /usr/bin/docker-compose
+    mv -f docker-compose-linux-x86_64 /usr/bin/docker-compose
 
 elif [ "$arch" = "aarch64" ]; then
     echo "当前系统架构为aarch64"
@@ -24,7 +24,7 @@ elif [ "$arch" = "aarch64" ]; then
         tar zxvf docker-20.10.0-aarch64.tgz -C /tmp/yscredit/setup/docker
     fi
 
-    /bin/cp -rf docker-compose-linux-aarch64 /usr/bin/docker-compose
+    mv -f docker-compose-linux-aarch64 /usr/bin/docker-compose
     
 else
     echo "ERROR:未知架构"
@@ -33,17 +33,17 @@ fi
 
 chown -R root:root docker/*
 chmod 0755 docker/*
-/bin/cp -rf docker/* /usr/bin
+mv -f docker/* /usr/bin
 
-/bin/cp -rf docker.service /usr/lib/systemd/system/
-/bin/cp -rf docker.socket /usr/lib/systemd/system/
-/bin/cp -rf containerd.service /usr/lib/systemd/system/
+mv -f docker.service /usr/lib/systemd/system/
+mv -f docker.socket /usr/lib/systemd/system/
+mv -f containerd.service /usr/lib/systemd/system/
 chmod 0755 /usr/lib/systemd/system/docker.service
 chmod 0755 /usr/lib/systemd/system/docker.socket
 chmod 0755 /usr/lib/systemd/system/containerd.service
 
 mkdir -p /etc/docker
-/bin/cp -rf daemon.json.j2 /etc/docker/daemon.json
+mv -f daemon.json.j2 /etc/docker/daemon.json
 chmod 0644 /etc/docker/daemon.json
 
 chmod 0755 /usr/bin/docker-compose
