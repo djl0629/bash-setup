@@ -10,8 +10,10 @@ if [ "$arch" = "x86_64" ]; then
 
     # 如果系统没有预装tar则使用unzip解压
     if ! command -v tar &> /dev/null; then
+        rm -rf ./*tgz
         unzip docker-20.10.0-x86_64.zip
     else
+        rm -rf ./*zip
         tar zxvf docker-20.10.0-x86_64.tgz -C /tmp/yscredit/setup/docker
     fi
 
@@ -23,8 +25,10 @@ elif [ "$arch" = "aarch64" ]; then
 
     # 如果系统没有预装tar则使用unzip解压
     if ! command -v tar &> /dev/null; then
+        rm -rf ./*tgz
         unzip docker-20.10.0-aarch64.zip
     else
+        rm -rf ./*zip
         tar zxvf docker-20.10.0-aarch64.tgz -C /tmp/yscredit/setup/docker
     fi
 
