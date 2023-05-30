@@ -5,6 +5,8 @@ cd /tmp/yscredit/setup/docker
 if [ "$arch" = "x86_64" ]; then
     echo "当前系统架构为x86_64"
 
+    mv -f docker-compose-linux-x86_64 /usr/bin/docker-compose
+
     # 如果系统没有预装tar则使用unzip解压
     if ! command -v tar &> /dev/null; then
         unzip docker-20.10.0-x86_64.zip
@@ -12,10 +14,10 @@ if [ "$arch" = "x86_64" ]; then
         tar zxvf docker-20.10.0-x86_64.tgz -C /tmp/yscredit/setup/docker
     fi
 
-    mv -f docker-compose-linux-x86_64 /usr/bin/docker-compose
-
 elif [ "$arch" = "aarch64" ]; then
     echo "当前系统架构为aarch64"
+
+    mv -f docker-compose-linux-aarch64 /usr/bin/docker-compose
 
     # 如果系统没有预装tar则使用unzip解压
     if ! command -v tar &> /dev/null; then
@@ -24,8 +26,6 @@ elif [ "$arch" = "aarch64" ]; then
         tar zxvf docker-20.10.0-aarch64.tgz -C /tmp/yscredit/setup/docker
     fi
 
-    mv -f docker-compose-linux-aarch64 /usr/bin/docker-compose
-    
 else
     echo "ERROR:未知架构"
     exit 1
