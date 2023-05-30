@@ -32,6 +32,7 @@ else
 fi
 
 chown -R root:root docker/*
+chmod 0755 docker/*
 cp docker/* /usr/bin
 
 cp docker.service /usr/lib/systemd/system/
