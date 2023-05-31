@@ -40,6 +40,13 @@ fi
 
 chown -R root:root docker/*
 /bin/cp -f docker/* /usr/bin
+mapfile -t bin_list < <(ls docker)
+
+for item in "${bin_list[@]}"
+do
+    chmod +x /usr/bin/$item
+done
+
 mkdir /etc/docker
 
 
