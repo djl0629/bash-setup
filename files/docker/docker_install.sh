@@ -39,23 +39,15 @@ else
     exit 1
 fi
 
-chown -R root:root docker/*
+chown -R root:root .
 mv -f docker/* /usr/bin
 
 mv -f docker.service /usr/lib/systemd/system/
-mv -f docker.socket /usr/lib/systemd/system/
-mv -f containerd.service /usr/lib/systemd/system/
 chmod 775 /usr/lib/systemd/system/docker.service
-chmod 775 /usr/lib/systemd/system/docker.socket
-chmod 775 /usr/lib/systemd/system/containerd.service
 
 mkdir -p /etc/docker
 mv -f daemon.json.j2 /etc/docker/daemon.json
-chmod 664 /etc/docker/daemon.json
 
-chmod 775 /usr/bin/docker-compose
-
-groupadd docker
 systemctl daemon-reload
 systemctl start docker
 systemctl enable docker
