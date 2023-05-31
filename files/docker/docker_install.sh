@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 arch=$(uname -m)
 cd /tmp/yscredit/setup/docker
 if [ "$arch" = "x86_64" ]; then
