@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config 
 sed -i 's/4096/65535/g' /etc/security/limits.d/*.conf
 

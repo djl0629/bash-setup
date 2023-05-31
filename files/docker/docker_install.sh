@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 arch=$(uname -m)
 cd /tmp/yscredit/setup/docker
 if [ "$arch" = "x86_64" ]; then
@@ -38,21 +40,20 @@ else
 fi
 
 chown -R root:root docker/*
-chmod 0775 docker/*
 mv -f docker/* /usr/bin
 
 mv -f docker.service /usr/lib/systemd/system/
 mv -f docker.socket /usr/lib/systemd/system/
 mv -f containerd.service /usr/lib/systemd/system/
-chmod 0775 /usr/lib/systemd/system/docker.service
-chmod 0775 /usr/lib/systemd/system/docker.socket
-chmod 0775 /usr/lib/systemd/system/containerd.service
+chmod 775 /usr/lib/systemd/system/docker.service
+chmod 775 /usr/lib/systemd/system/docker.socket
+chmod 775 /usr/lib/systemd/system/containerd.service
 
 mkdir -p /etc/docker
 mv -f daemon.json.j2 /etc/docker/daemon.json
-chmod 0664 /etc/docker/daemon.json
+chmod 664 /etc/docker/daemon.json
 
-chmod 0775 /usr/bin/docker-compose
+chmod 775 /usr/bin/docker-compose
 
 groupadd docker
 systemctl daemon-reload
