@@ -15,7 +15,7 @@ if [ "$arch" = "x86_64" ]; then
         unzip docker-20.10.*-x86_64.zip
     else
         rm -rf ./*zip
-        tar zxvf docker-20.10.*-x86_64.tgz -C /tmp/yscredit/setup/docker
+        tar zxvf docker-20.10.*-x86_64.tgz
     fi
 
 elif [ "$arch" = "aarch64" ]; then
@@ -30,7 +30,7 @@ elif [ "$arch" = "aarch64" ]; then
         unzip docker-20.10.*-aarch64.zip
     else
         rm -rf ./*zip
-        tar zxvf docker-20.10.*-aarch64.tgz -C /tmp/yscredit/setup/docker
+        tar zxvf docker-20.10.*-aarch64.tgz
     fi
 
 else
@@ -39,25 +39,17 @@ else
 fi
 
 chown -R root:root docker/*
-chmod 0755 docker/*
-mv -f docker/* /usr/bin
+/bin/cp -f docker/* /usr/bin
+mkdir /etc/docker
 
-mv -f docker.service /etc/systemd/system/
-mv -f docker.socket /etc/systemd/system/
-mv -f containerd.service /etc/systemd/system/
-chmod 0755 /etc/systemd/system/docker.service
-chmod 0755 /etc/systemd/system/docker.socket
-chmod 0755 /etc/systemd/system/containerd.service
 
-mkdir -p /etc/docker
+/bin/cp -f docker.service /etc/systemd/system/
+chmod 775 /etc/systemd/system/docker.service
+
 mv -f daemon.json.j2 /etc/docker/daemon.json
-chmod 0644 /etc/docker/daemon.json
 
-chmod 0755 /usr/bin/docker-compose
+chmod 775 /usr/bin/docker-compose
 
-groupadd docker
 systemctl daemon-reload
 systemctl restart docker
 systemctl enable docker
-
-rm -rf /tmp/yscredit/setup/docker
