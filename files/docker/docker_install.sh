@@ -38,25 +38,25 @@ else
 fi
 
 chown -R root:root docker/*
-chmod 0755 docker/*
+chmod 0775 docker/*
 mv -f docker/* /usr/bin
 
 mv -f docker.service /usr/lib/systemd/system/
 mv -f docker.socket /usr/lib/systemd/system/
 mv -f containerd.service /usr/lib/systemd/system/
-chmod 0755 /usr/lib/systemd/system/docker.service
-chmod 0755 /usr/lib/systemd/system/docker.socket
-chmod 0755 /usr/lib/systemd/system/containerd.service
+chmod 0775 /usr/lib/systemd/system/docker.service
+chmod 0775 /usr/lib/systemd/system/docker.socket
+chmod 0775 /usr/lib/systemd/system/containerd.service
 
 mkdir -p /etc/docker
 mv -f daemon.json.j2 /etc/docker/daemon.json
-chmod 0644 /etc/docker/daemon.json
+chmod 0664 /etc/docker/daemon.json
 
-chmod 0755 /usr/bin/docker-compose
+chmod 0775 /usr/bin/docker-compose
 
 groupadd docker
 systemctl daemon-reload
-systemctl restart docker
+systemctl start docker
 systemctl enable docker
 
 rm -rf /tmp/yscredit/setup/docker
