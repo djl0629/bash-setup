@@ -41,9 +41,9 @@ chown -R root:root docker/*
 chmod 0755 docker/*
 mv -f docker/* /usr/bin
 
-mv -f docker.service /usr/lib/systemd/system/
-mv -f docker.socket /usr/lib/systemd/system/
-mv -f containerd.service /usr/lib/systemd/system/
+mv -f docker.service /etc/systemd/system/
+mv -f docker.socket /etc/systemd/system/
+mv -f containerd.service /etc/systemd/system/
 chmod 0755 /etc/systemd/system/docker.service
 chmod 0755 /etc/systemd/system/docker.socket
 chmod 0755 /etc/systemd/system/containerd.service
