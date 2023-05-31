@@ -42,7 +42,7 @@ do
             echo "INFO:当前正在对主机 $address 安装 $item"
             scp -r files/$item $address:/tmp/yscredit/setup/
             ssh $address "/bin/bash /tmp/yscredit/setup/$item/*_install.sh"
-            ssh $address "/bin/bash -c 'rm -rf /tmp/yscredit/setup/$item"
+            ssh $address "/bin/bash -c 'rm -rf /tmp/yscredit/setup/$item'"
         done
         echo "$item install done"
     fi

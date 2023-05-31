@@ -8,7 +8,7 @@
 10.1.1.13
 10.1.1.14
 ```
-2、添加可执行全新啊
+2、添加可执行权限
 ```bash
 chmod +x ssh_key_copy.sh install.sh
 ```
