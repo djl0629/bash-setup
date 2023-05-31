@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 arch=$(uname -m)
 cd /tmp/yscredit/setup/docker
 if [ "$arch" = "x86_64" ]; then
@@ -13,10 +11,10 @@ if [ "$arch" = "x86_64" ]; then
     # 如果系统没有预装tar则使用unzip解压
     if ! command -v tar &> /dev/null; then
         rm -rf ./*tgz
-        unzip docker-20.10.*-x86_64.zip
+        unzip docker-20.10.0-x86_64.zip
     else
         rm -rf ./*zip
-        tar zxvf docker-20.10.*-x86_64.tgz -C /tmp/yscredit/setup/docker
+        tar zxvf docker-20.10.0-x86_64.tgz -C /tmp/yscredit/setup/docker
     fi
 
 elif [ "$arch" = "aarch64" ]; then
@@ -28,10 +26,10 @@ elif [ "$arch" = "aarch64" ]; then
     # 如果系统没有预装tar则使用unzip解压
     if ! command -v tar &> /dev/null; then
         rm -rf ./*tgz
-        unzip docker-20.10.*-aarch64.zip
+        unzip docker-20.10.0-aarch64.zip
     else
         rm -rf ./*zip
-        tar zxvf docker-20.10.*-aarch64.tgz -C /tmp/yscredit/setup/docker
+        tar zxvf docker-20.10.0-aarch64.tgz -C /tmp/yscredit/setup/docker
     fi
 
 else
@@ -39,17 +37,26 @@ else
     exit 1
 fi
 
-chown -R root:root .
+chown -R root:root docker/*
+chmod 0755 docker/*
 mv -f docker/* /usr/bin
 
 mv -f docker.service /usr/lib/systemd/system/
-chmod 775 /usr/lib/systemd/system/docker.service
+mv -f docker.socket /usr/lib/systemd/system/
+mv -f containerd.service /usr/lib/systemd/system/
+chmod 0755 /etc/systemd/system/docker.service
+chmod 0755 /etc/systemd/system/docker.socket
+chmod 0755 /etc/systemd/system/containerd.service
 
 mkdir -p /etc/docker
 mv -f daemon.json.j2 /etc/docker/daemon.json
+chmod 0644 /etc/docker/daemon.json
 
+chmod 0755 /usr/bin/docker-compose
+
+groupadd docker
 systemctl daemon-reload
-systemctl start docker
+systemctl restart docker
 systemctl enable docker
 
 rm -rf /tmp/yscredit/setup/docker
